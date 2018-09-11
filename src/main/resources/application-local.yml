@@ -1,0 +1,52 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3307/girl
+    username: root
+    password: wing-root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  kafka:
+    producer:
+      # key/value的序列化
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # 批量抓取
+      batch-size: 65536
+      # 缓存容量
+      buffer-memory: 524288
+      # kafka服务器地址(可以多个逗号隔开)
+      bootstrap-servers: 192.168.0.137:9092
+    consumer:
+      # 指定一个默认的组名
+      group-id: kafka2
+      # earliest:当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费
+      # latest:当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，消费新产生的该分区下的数据
+      # none:topic各分区都存在已提交的offset时，从offset后开始消费；只要有一个分区不存在已提交的offset，则抛出异常
+      auto-offset-reset: earliest
+      # key/value的反序列化
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # kafka服务器地址(可以多个逗号隔开)
+      bootstrap-servers: 192.168.0.137:9092
+  myprops:
+    simpleProp: this is local simplePropValue
+    arrayProps: 1,2,3,4,5
+    listProp1:
+      - name: abc
+        value: abcValue
+      - name: efg
+        value: efgValue
+    listProp2:
+      - config2Value1
+      - config2Vavlue2
+    mapProps:
+      key1: value1
+      key2: value2
